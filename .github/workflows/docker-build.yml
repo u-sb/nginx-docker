@@ -25,10 +25,11 @@ jobs:
           IMAGE_ID="ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME"
           IMAGE_VERSION="${GITHUB_REF##*/v}"
           curl -sL https://raw.githubusercontent.com/docker-slim/docker-slim/master/scripts/install-dockerslim.sh | sudo -E bash -
-          docker-slim build "$IMAGE_NAME"
+          docker-slim build --expose 80 "$IMAGE_NAME"
           docker run --rm "$IMAGE_NAME.slim" sh -c "nginx -V && nginx -t"
-          docker tag "$IMAGE_NAME.slim" "$IMAGE_ID:$IMAGE_VERSION"
-          docker tag "$IMAGE_NAME.slim" "$IMAGE_ID:latest"
+          docker tag "$IMAGE_NAME" "$IMAGE_ID:$IMAGE_VERSION"
+          docker tag "$IMAGE_NAME" "$IMAGE_ID:latest"
+          docker tag "$IMAGE_NAME.slim" "$IMAGE_ID:slim"
           docker images
           docker push "$IMAGE_ID:$IMAGE_VERSION"
           docker push "$IMAGE_ID:latest"
