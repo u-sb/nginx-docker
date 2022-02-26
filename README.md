@@ -1,11 +1,11 @@
-# Docker image for [nginx.io](https://nginx.io/)
+# Docker image for Nginx
 
-[nginx.io](https://nginx.io/) (formerly known as sb-nginx) is a Debian package by [xTom](https://xtom.com/) offering a nginx build supports:
+[Nginx](https://github.com/u-sb/nginx-docker) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog]](https://u.sb/) offering a nginx build supports:
 
  * Brotli compression
  * OpenSSL 3.0.1 with TLS 1.3 support
  * GeoIP2
- * [**Hosted on GitHub Packages!**](https://github.com/nginx-io/docker-sb-nginx/pkgs/container/nginx)
+ * [**Hosted on GitHub Packages!**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx)
 
 ## **Awesome** Usage
 
@@ -24,8 +24,8 @@ Your existing config files will **replace** default config files.
 ## Using Docker Compose
 
 ```bash
-git clone https://github.com/nginx-io/nginx-io-docker
-cd nginx-io-docker
+git clone https://github.com/u-sb/nginx-docker
+cd nginx-docker
 docker-compose pull
 docker-compose up -d
 ```
@@ -41,3 +41,13 @@ docker exec nginx docker-nginx-reload.sh
 ```
 
 This `docker-nginx-reload.sh` script will test your new configuration and reload the server. It will rollback if the test fails.
+
+## License and Trademark
+
+We distribute this software under the MIT license.
+
+[nginx](http://nginx.org/en/) is a opensource HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license. 
+
+NGINX is a trademark of F5 NETWORKS, INC. 
+
+We are not affiliated with NGINX Inc. and/or F5 NETWORKS, INC.
