@@ -6,7 +6,7 @@ ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends ca-certificates gettext-base wget; \
-    wget -O /etc/apt/trusted.gpg.d/sb-nginx.asc "https://u.sb/nginx.key"; \
+    wget -O /etc/apt/trusted.gpg.d/sb-nginx.asc "https://nginx.u.sb/public.key"; \
     echo "deb $PACKAGE_REPO bullseye main" > /etc/apt/sources.list.d/sb-nginx.list; \
     apt-get update; \
     apt-get install -y --no-install-recommends "nginx=$VERSION"; \
