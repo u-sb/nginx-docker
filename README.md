@@ -1,6 +1,6 @@
 # Docker image for Nginx
 
-[Nginx](https://github.com/u-sb/nginx-docker) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog]](https://u.sb/) offering a nginx build supports:
+[Nginx by u.sb](https://nginx.u.sb/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog](https://u.sb/) offering a [nginx](https://nginx.org/) build supports:
 
  * Brotli compression
  * OpenSSL 3.0.1 with TLS 1.3 support
@@ -46,7 +46,7 @@ This `docker-nginx-reload.sh` script will test your new configuration and reload
 
 We distribute this software under the MIT license.
 
-[nginx](http://nginx.org/en/) is a opensource HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license. 
+[nginx](https://nginx.org/en/) is a opensource HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license. 
 
 NGINX is a trademark of F5 NETWORKS, INC. 
 
