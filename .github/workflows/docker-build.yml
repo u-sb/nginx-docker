@@ -23,6 +23,7 @@ jobs:
       - name: Push image
         run: |
           IMAGE_ID="ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME"
+          IMAGE_ID2="ghcr.io/nginx-io/$IMAGE_NAME"
           IMAGE_VERSION="${GITHUB_REF##*/v}"
           curl -sL https://raw.githubusercontent.com/docker-slim/docker-slim/master/scripts/install-dockerslim.sh | sudo -E bash -
           docker-slim build --http-probe=false "$IMAGE_NAME"
@@ -31,7 +32,15 @@ jobs:
           docker tag "$IMAGE_NAME" "$IMAGE_ID:latest"
           docker tag "$IMAGE_NAME.slim" "$IMAGE_ID:$IMAGE_VERSION-slim"
           docker tag "$IMAGE_NAME.slim" "$IMAGE_ID:slim"
+          docker tag "$IMAGE_NAME" "$IMAGE_ID2:$IMAGE_VERSION"
+          docker tag "$IMAGE_NAME" "$IMAGE_ID2:latest"
+          docker tag "$IMAGE_NAME.slim" "$IMAGE_ID2:$IMAGE_VERSION-slim"
+          docker tag "$IMAGE_NAME.slim" "$IMAGE_ID2:slim"
           docker push "$IMAGE_ID:$IMAGE_VERSION-slim"
           docker push "$IMAGE_ID:slim"
           docker push "$IMAGE_ID:$IMAGE_VERSION"
           docker push "$IMAGE_ID:latest"
+          docker push "$IMAGE_ID2:$IMAGE_VERSION-slim"
+          docker push "$IMAGE_ID2:slim"
+          docker push "$IMAGE_ID2:$IMAGE_VERSION"
+          docker push "$IMAGE_ID2:latest"
