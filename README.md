@@ -14,7 +14,7 @@ Put your config files (`nginx.conf` etc.) inside a folder, for example: `~/nginx
 Then `run` the container:
 
 ```bash
-docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/nginx-io/nginx
+docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx
 ```
 
 You **must** mount the config dir to this specific `/usr/src/docker-nginx/conf` path!
