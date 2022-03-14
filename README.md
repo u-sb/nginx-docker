@@ -1,6 +1,6 @@
 # Docker image for Nginx
 
-[Nginx by u.sb](https://nginx.u.sb/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog](https://u.sb/) offering a [nginx](https://nginx.org/) build supports:
+[n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog](https://u.sb/) offering a [nginx](https://nginx.org/) build supports:
 
  * Brotli compression
  * OpenSSL 3.0.1 with TLS 1.3 support
