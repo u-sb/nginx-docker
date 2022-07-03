@@ -24,8 +24,8 @@ jobs:
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag "$IMAGE_NAME"
+      - name: Set version tag
+        run: echo "IMAGE_VERSION=${GITHUB_REF##*/v}" >> $GITHUB_ENV
 
       - name: Build images
         uses: docker/build-push-action@v2
@@ -36,4 +36,4 @@ jobs:
           file: ./Dockerfile
           tags: |
             "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
-            "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${GITHUB_REF##*/v}"
+            "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}"
