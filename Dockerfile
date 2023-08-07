@@ -1,13 +1,13 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
-ARG VERSION="1.25.0-1nwtf+308quic1+11bullseye1"
-ARG PACKAGE_REPO="https://mirror-cdn.xtom.com/sb/nginx"
+ARG VERSION="2:1.25.1-1nwtf+312quic1+12bookworm1"
+ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 
 RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends ca-certificates gettext-base wget; \
     wget -O /etc/apt/trusted.gpg.d/sb-nginx.asc "https://n.wtf/public.key"; \
-    echo "deb $PACKAGE_REPO bullseye main" > /etc/apt/sources.list.d/sb-nginx.list; \
+    echo "deb $PACKAGE_REPO bookworm main" > /etc/apt/sources.list.d/sb-nginx.list; \
     apt-get update; \
     apt-get install -y --no-install-recommends "nginx-extras=$VERSION"; \
     apt-get purge -y --auto-remove wget; \

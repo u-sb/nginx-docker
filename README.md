@@ -2,8 +2,9 @@
 
 [n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog](https://u.sb/) offering a [nginx](https://nginx.org/) build supports:
 
+ * QUIC support
  * Brotli compression
- * OpenSSL 3.0.x with TLS 1.3 support
+ * [QUIC TLS] 3.1.x with TLS 1.3 support
  * GeoIP2
  * [**Hosted on GitHub Packages!**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx)
 
