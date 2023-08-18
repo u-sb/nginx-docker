@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-ARG VERSION="2:1.25.1-1nwtf+312quic1+12bookworm1"
+ARG VERSION="2:1.25.2-1nwtf+312quic1+12bookworm1"
 ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 
 RUN set -ex; \
