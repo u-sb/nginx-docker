@@ -11,7 +11,15 @@ services:
         restart: always
         volumes:
             - ./nginx-config:/usr/src/docker-nginx/conf
+        # command:
+        #     - default.conf
+        #     - options/websocket.conf
+        #     - contoso.example.conf
         logging:
             driver: "json-file"
             options:
                 max-size: "10m"
+
+# networks:
+#   gateway:
+#     name: nginx-gateway
