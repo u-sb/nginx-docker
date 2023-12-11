@@ -1,0 +1,52 @@
+#!/bin/sh
+# shellcheck shell=dash
+
+set -eu
+
+[ -z ${dir:+1} ] && {
+  if [ -L /etc/nginx ]; then
+    dir="$NWTF_BASE/defaults"
+  elif [ -d /etc/nginx ]; then
+    dir=/etc/nginx
+  fi
+}
+
+enable=1
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -d)
+      dir="$2"
+      shift
+      ;;
+    --on)
+      enable=1
+      ;;
+    --off)
+      enable=
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      echo "Unknown argument: \"$1\"." 1>&2
+      exit 1
+      ;;
+    *)
+      if [ -n "$enable" ]; then
+        mkdir -p "$dir/sites-enabled"
+        cd "$dir/sites-enabled"
+        ln -sfn "../sites-available/$1" .
+      else
+        rm -rfv "$dir/sites-enabled/$1"
+      fi
+  esac
+  shift
+done
+
+ls -la "$dir/sites-enabled"
+
+if [ $# -gt 0 ]; then
+  exec "$@"
+fi

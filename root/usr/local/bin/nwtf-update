@@ -1,0 +1,114 @@
+#!/bin/sh
+# shellcheck shell=dash
+
+set -eu
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -c)
+      upstream="$2"
+      shift
+      ;;
+    -o)
+      owner="$2"
+      shift
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo "Unknown argument: \"$1\"." 1>&2
+      exit 1
+  esac
+  shift
+done
+
+[ -z ${link+1s} ] && link="/etc/nginx"
+[ -z ${origin+1s} ] && origin="$link"
+[ -z ${base+1s} ] && base="$NWTF_BASE"
+[ -z ${defaults+1s} ] && defaults="$base/defaults"
+[ -z ${upstream+1s} ] && upstream="$NWTF_CONFIG_DIR"
+[ -z ${owner+1s} ] && owner="www-data:www-data"
+
+[ ! -d "$base" ] && {
+  [ -e "$base" ] && {
+    echo "Base path exists but is not a directory: $base" 1>&2
+    exit 1
+  }
+  mkdir -p "$base"
+}
+
+[ ! -L "$origin" ] && [ -d "$origin" ] && {
+  if [ "$origin" = "$link" ]; then
+    sites_enabled=
+    if [ -d "$defaults/sites-enabled" ]; then
+      sites_enabled=$(mktemp -d)
+      cp -R "$defaults/sites-enabled/." "$sites_enabled"
+    fi
+    rm -rf "$defaults"
+    cp -R "$origin" "$defaults"
+    if [ -n "$sites_enabled" ]; then
+      cp -R "$sites_enabled/." "$defaults/sites-enabled"
+      rm -rf "$sites_enabled"
+    fi
+    rm -rf "$origin"
+  elif [ ! -e "$defaults" ]; then
+    cp -R "$origin" "$defaults"
+  fi
+}
+
+if [ -L "$link" ]; then
+  # First start: ''
+  # Subsequent updates: "$base/v012345678"
+  current="$(readlink -f "$link")"
+elif [ ! -e "$link" ]; then
+  current=''
+else
+  echo "Invalid link: $link" >&2
+  exit 1
+fi
+
+# First start: "$base/v012345678"
+# Subsequent updates: "$base/v123456789"
+target="$base/v$(date +%s%N)"
+
+# Ensure target is empty
+[ -e "$target" ] && rm -rf "$target"
+mkdir "$target"
+
+# Apply defaults
+[ -d "$defaults" ] && cp -R "$defaults/." "$target"
+
+# Pull from upstream (defaults will be overwritten)
+[ -d "$upstream" ] && cp -R "$upstream/." "$target"
+
+rm -rf "$target/.git"*
+
+chown -R "$owner" "$target"
+
+# Set link to target
+ln -sfn "$target" "$link"
+
+! "$@" && {
+  # Test failed
+
+  if [ -n "$current" ]; then
+    ln -sfn "$current" "$link"
+  else
+    ln -sfn "$defaults" "$link"
+  fi
+
+  rm -rf "$target"
+
+  [ -n "$current" ] && [ "$current" != "$defaults" ] && exit 10
+
+  exit 1
+}
+
+# Test OK
+
+if [ -n "$current" ] && [ "$current" != "$defaults" ]; then
+  # Delete old target only if it's not a first start
+  rm -rf "$current"
+fi

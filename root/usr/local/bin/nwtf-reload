@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+ensite "$@" -- \
+  nwtf-update -- \
+  docker-entrypoint nginx -e stderr -s reload

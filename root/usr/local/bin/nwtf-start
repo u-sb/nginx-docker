@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -eu
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    --)
+      shift
+      break
+      ;;
+    -*)
+      echo "Unknown argument: \"$1\"." 1>&2
+      exit 1
+      ;;
+    *)
+      ensite "$1"
+  esac
+  shift
+done
+
+nwtf-update \
+  -- docker-entrypoint nginx -e stderr -t
+
+if [ $# -gt 0 ]; then
+  exec "$@"
+fi
+
+exec nginx -e stderr -g "daemon off;"
