@@ -55,7 +55,7 @@ This `nwtf-reload` script will test your new configuration and reload the server
 
 ## `ensite` and `dissite`
 
-By default, the command (`CMD`) is passed to a script called `ensite`. It links config files inside `sites-available/` to `sites-enable/`.
+By default, the command (`CMD`) is passed to a script called `ensite`. It links config files inside `sites-available/` to `sites-enabled/`.
 
 > [!TIP]
 > To run arbitary command (rather than start NGINX), specify command (e.g. `/bin/sh`) with `--` prefixed like `-- /bin/sh`.
