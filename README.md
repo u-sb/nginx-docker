@@ -1,38 +1,40 @@
-# Docker image for Nginx
+# Docker Image for N.WTF
 
-[n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package by [SB Blog](https://u.sb/) offering a [nginx](https://nginx.org/) build supports:
+[n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package provided by [SB Blog](https://u.sb/) that delivers an enhanced [NGINX](https://nginx.org/) build offering the following features:
 
- * QUIC support
- * Brotli compression
- * [QUIC TLS] 3.1.x with TLS 1.3 support
- * GeoIP2
- * [**Hosted on GitHub Packages!**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx)
+* Support for TLS 1.3 and HTTP/3 (QUIC)
+* Brotli compression capability
+* Integration with GeoIP2
 
-## **Awesome** Usage
+This repository hosts the source of [**Docker image for N.WTF**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx).
 
-Put your config files (`nginx.conf` etc.) inside a folder, for example: `~/nginx-config`.
+## Basic Usage
 
-Your existing config files will **replace** [the default config files](https://github.com/nginx/nginx/tree/master/conf).
+Place your configuration files (such as `nginx.conf`) in a directory, for instance: `~/nginx-config`.
 
-It is recommended to provide a full `nginx.conf` so that all options can be tuned as needed. [h5bp/server-configs-nginx](https://github.com/h5bp/server-configs-nginx) can be a good reference.
+Your configuration files will **replace** [the default configuration files](https://github.com/nginx/nginx/tree/master/conf).
 
-Use Docker volume to map the config directory into the container. You can change the configuration path inside the container with environment: `-e NWTF_CONFIG_DIR=/usr/src/docker-nginx/conf`.
+For comprehensive customization, it is recommended to use a complete `nginx.conf`. The repository [h5bp/server-configs-nginx](https://github.com/h5bp/server-configs-nginx) is an excellent starting point for reference configurations.
 
-Then `run` the container:
+Map your configuration directory to the container using a Docker volume. You can modify the configuration path inside the container by setting an environment variable: `-e NWTF_CONFIG_DIR=/usr/src/docker-nginx/conf`.
+
+To `run` the container, execute:
 
 ```bash
 docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx
 ```
 
-### Envsubst
+## Environment Variable Substitution
 
-We merged entrypoint scripts from [the official Docker image source](https://github.com/nginxinc/docker-nginx). You can refer to any environment variables in NGINX config files ending with `.conf`. For example, you can use the local DNS resolvers extracted from `/etc/resolv.conf` by:
+We have integrated the entrypoint scripts from [the official Docker image](https://github.com/nginxinc/docker-nginx). These allow NGINX configuration files ending with `.conf` to reference any environment variables. For example, to utilize local DNS resolvers obtained from `/etc/resolv.conf`, use:
 
 ```
 resolver ${NGINX_LOCAL_RESOLVERS} valid=30s;
 ```
 
-### Using Docker Compose
+## Docker Compose Usage
+
+Clone the repository and start the service using Docker Compose by running:
 
 ```bash
 git clone https://github.com/u-sb/nginx-docker
@@ -41,30 +43,30 @@ docker-compose pull
 docker-compose up -d
 ```
 
-### Reload Changed Configuration
+## Configuration Reloading
 
-You can even change your configuration after the container start and apply them without any downtime.
+If you modify your configuration after the container starts, you can apply changes without downtime.
 
-After change, run the command:
+Execute the following command after making changes:
 
 ```bash
 docker exec nginx nwtf-reload
 ```
 
-This `nwtf-reload` script will test your new configuration and reload the server. It will rollback if the test fails.
+The `nwtf-reload` script will test your new configuration and attempt to reload the server. It will revert the changes if the test fails.
 
-## `ensite` and `dissite`
+## Usage of `ensite` and `dissite`
 
-By default, the command (`CMD`) is passed to a script called `ensite`. It links config files inside `sites-available/` to `sites-enabled/`.
+By default, the `CMD` is processed by a script called `ensite`, which links configuration files from `sites-available/` to `sites-enabled/`.
 
 > [!TIP]
-> To run arbitary command (rather than start NGINX), specify command (e.g. `/bin/sh`) with `--` prefixed like `-- /bin/sh`.
+> To run an arbitrary command instead of starting NGINX, specify the desired command (e.g., `/bin/sh`) with a `--` prefix, such as `-- /bin/sh`.
 
-Whenever you added a new site e.g. `sites-available/contoso.example.conf`, you can enable it by execute `ensite contoso.example.conf`, or disable it later by `dissite contoso.example.conf` or `ensite --off contoso.example.conf`.
+After adding a new site configuration, such as `sites-available/contoso.example.conf`, enable it by executing `ensite contoso.example.conf`. You can disable it later using `dissite contoso.example.conf` or `ensite --off contoso.example.conf`.
 
-Don't forget to execute `nwtf-reload` to reload the NGINX.
+Remember to execute `nwtf-reload` afterward to reload NGINX.
 
-This enables you to define sites like this in the Docker compose file:
+You can define sites in the Docker Compose file like so:
 
 ```yaml
 services:
@@ -79,10 +81,10 @@ services:
 
 ## License and Trademark
 
-We distribute this software under the MIT license.
+This software is distributed under the MIT license.
 
-[nginx](https://nginx.org/en/) is a opensource HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license. 
+NGINX is an open-source HTTP and reverse proxy server, a mail proxy server, and a general-purpose TCP/UDP proxy server, available under a 2-clause BSD-like license.
 
-NGINX is a trademark of F5 NETWORKS, INC. 
+NGINX is a trademark of F5 NETWORKS, INC.
 
-We are not affiliated with NGINX Inc. and/or F5 NETWORKS, INC.
+Please note that we are not affiliated with NGINX Inc. or F5 NETWORKS, INC.
