@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-ARG VERSION="2:1.25.3-1nwtf+320+12bookworm1"
+ARG VERSION="2:1.25.4-1nwtf+321+12bookworm1"
 ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 
 ENV NWTF_BASE="/var/lib/n.wtf"
