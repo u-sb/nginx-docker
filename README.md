@@ -39,8 +39,8 @@ Clone the repository and start the service using Docker Compose by running:
 ```bash
 git clone https://github.com/u-sb/nginx-docker
 cd nginx-docker
-docker-compose pull
-docker-compose up -d
+docker compose pull
+docker compose up -d
 ```
 
 ## Configuration Reloading
