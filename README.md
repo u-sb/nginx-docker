@@ -1,9 +1,9 @@
 # Docker Image for N.WTF
 
-[n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package provided by [SB Blog](https://u.sb/) that delivers an enhanced [NGINX](https://nginx.org/) build offering the following features:
+[n.wtf](https://n.wtf/) (formerly known as `nginx.io` or `sb-nginx`) is a Debian package provided by [m.ac](https://m.ac/) that delivers an enhanced [NGINX](https://nginx.org/) build offering the following features:
 
 * Support for TLS 1.3 and HTTP/3 (QUIC)
-* Brotli compression capability
+* Brotli & Zstandard compression capability
 * Integration with GeoIP2
 
 This repository hosts the source of [**Docker image for N.WTF**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx).
