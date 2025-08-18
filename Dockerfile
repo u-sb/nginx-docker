@@ -1,6 +1,6 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
-ARG VERSION="2:1.29.0-1nwtf+351+12bookworm1"
+ARG VERSION="2:1.29.1-1nwtf+352+13trixie1"
 ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 
 ENV NWTF_BASE="/var/lib/n.wtf"
@@ -10,7 +10,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends ca-certificates gettext-base wget; \
     wget -O /usr/share/keyrings/n-wtf.asc "https://n.wtf/public.key"; \
-    echo "deb [signed-by=/usr/share/keyrings/n-wtf.asc] $PACKAGE_REPO bookworm main" > /etc/apt/sources.list.d/n-wtf.list; \
+    echo "deb [signed-by=/usr/share/keyrings/n-wtf.asc] $PACKAGE_REPO trixie main" > /etc/apt/sources.list.d/n-wtf.list; \
     apt-get update; \
     apt-get install -y --no-install-recommends "nginx-extras=$VERSION"; \
     apt-get purge -y --auto-remove wget; \
