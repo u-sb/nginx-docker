@@ -5,6 +5,7 @@
 * Support for TLS 1.3 and HTTP/3 (QUIC)
 * Brotli & Zstandard compression capability
 * Integration with GeoIP2
+* Support [nginx-acme](https://github.com/nginx/nginx-acme)
 
 This repository hosts the source of [**Docker image for N.WTF**](https://github.com/u-sb/nginx-docker/pkgs/container/nginx).
 
