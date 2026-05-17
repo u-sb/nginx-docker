@@ -1,6 +1,6 @@
 FROM debian:trixie-slim
 
-ARG VERSION="2:1.29.8-1nwtf+362+13trixie1"
+ARG VERSION="2:1.31.0-1nwtf+362+13trixie1"
 ARG PACKAGE_REPO="https://mirrors.xtom.com/sb/nginx"
 
 ENV NWTF_BASE="/var/lib/n.wtf"
